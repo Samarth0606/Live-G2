@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+<!-- addingheader.ejs -->
+<%- include('./partials/header') %>
 
     <h1> your todo list is below </h1>
     
@@ -14,5 +7,5 @@
         <h3> your task is: <%= i %> </h3>
     <% } %>
     
-</body>
-</html>
+<%- include('./partials/footer') %>    
+<!-- adding footer.ejs -->
