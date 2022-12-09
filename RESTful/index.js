@@ -49,6 +49,22 @@ app.post('/comments' , (req,res)=>{
     res.redirect('/comments');
 })
 
+// show a particular comment
+app.get('/comments/:commentId' , (req,res)=>{
+    // console.log(req.params);
+    let {commentId} = req.params;
+    // console.log(foundComment);
+    let foundComment = comments.find((comment)=>{ return comment.id === parseInt(commentId)})
+    // console.log(foundComment);
+    res.render('show' , {foundComment} )
+    // res.render('show' , {comment: foundComment} )
+    // res.send("params found");
+})
+
+
+
+
+
 app.listen('3000' , ()=>{
     console.log("server connected to port 3000");
 })
