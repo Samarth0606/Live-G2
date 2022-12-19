@@ -1,20 +1,22 @@
 let express =  require('express');
 let app = express();
 let path = require('path');
+const { v4: uuid } = require('uuid');
+
 
 let comments = [
     {
-        id:0,
+        id:uuid(),
         username:"Samarth",
         comment:"chitkara students are good x 1"
     },
     {
-        id:1,
+        id:uuid(),
         username:"Tarang",
         comment:"chitkara students are good x 2"
     },
     {
-        id:2,
+        id:uuid(),
         username:"Divyanshuuu",
         comment:"chitkara students are good x 3"
     }
@@ -44,7 +46,8 @@ app.get('/comment/new' , (req,res)=>{
 app.post('/comments' , (req,res)=>{
     // console.log(req.body);
     let { username , comment } = req.body;
-    comments.push({username, comment, id:comments.length})
+    // comments.push({username, comment, id:comments.length})
+    comments.push({username, comment, id:uuid()});
     // res.send("data sent successfully")
     res.redirect('/comments');
 })
@@ -54,13 +57,21 @@ app.get('/comments/:commentId' , (req,res)=>{
     // console.log(req.params);
     let {commentId} = req.params;
     // console.log(foundComment);
-    let foundComment = comments.find((comment)=>{ return comment.id === parseInt(commentId)})
+    // let foundComment = comments.find((comment)=>{ return comment.id === parseInt(commentId)});
+    let foundComment = comments.find((comment)=>{ return comment.id === (commentId)});
     // console.log(foundComment);
     res.render('show' , {foundComment} )
     // res.render('show' , {comment: foundComment} )
     // res.send("params found");
 })
 
+
+// to show the form of editing the comment
+app.get('/comments/:commentId/edit' , (req,res)=>{
+    let {commentId} = req.params;
+    let foundComment = comments.find((comment)=>{ return comment.id === (commentId)});
+    res.render('edit', {foundComment});
+})
 
 
 
