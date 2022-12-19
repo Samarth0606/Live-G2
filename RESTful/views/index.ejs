@@ -20,6 +20,9 @@
         <h4> Comment is: <%= i.comment %>   </h4>
         <a href="/comments/<%= i.id%>"> Show  </a>
         <a href="/comments/<%= i.id%>/edit"> Edit  </a>
+        <form action="/comments/<%= i.id%>?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
 
     </div>
 

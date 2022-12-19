@@ -2,6 +2,8 @@ let express =  require('express');
 let app = express();
 let path = require('path');
 const { v4: uuid } = require('uuid');
+let methodOverride = require('method-override');
+app.use(methodOverride('_method')); //middleware for method-override
 
 
 let comments = [
@@ -73,6 +75,26 @@ app.get('/comments/:commentId/edit' , (req,res)=>{
     res.render('edit', {foundComment});
 })
 
+// to hit the patch route and save the edited comment
+app.patch('/comments/:commentId' , (req,res)=>{
+    let {commentId} = req.params;
+    let foundComment = comments.find((comment)=>{ return comment.id === (commentId)});
+    // console.log(foundComment);
+    // console.log(req.body);
+    let {comment} = req.body;
+    foundComment.comment = comment;
+    res.redirect('/comments');
+    // res.send("patch req. sent successfuly");
+})
+
+
+// to delete a comment
+app.delete('/comments/:commentId' , (req,res)=>{
+    let {commentId} = req.params;
+    let newCommentArray = comments.filter((comment)=>{ return comment.id !== (commentId)});
+    comments = newCommentArray;
+    res.redirect('/comments');
+})
 
 
 
